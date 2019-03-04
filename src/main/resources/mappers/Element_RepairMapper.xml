@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.Element_RepairMapper">
+    <select id="GetElementRepairByElementId"  resultType="com.example.entity.Element_Repair">
+        select * from element_repair_info where equipment_element_id = #{equipment_element_id}
+    </select>
+
+    <select id="GetRepairMalfunction"  resultType="Integer">
+        select malfunction_id from repair_malfunction_info where element_repair_id = #{element_repair_id}
+    </select>
+
+    <insert id="AddElementRepair" parameterType="com.example.entity.Element_Repair">
+        insert into element_repair_info(equipment_element_id,user_id,element_repair_time)
+        valus(#{equipment_element_id},#{user_id},#{element_repair_time})
+    </insert>
+
+    <insert id="AddRepairMalfunction">
+        insert into repair_malfunction_info(element_repair_id,malfunction_id)
+        valus(#{element_repair_id},#{malfunction_id})
+    </insert>
+
+    <delete id="DeleteElementRepair">
+        delete from element_repair_info where element_repair_id = #{element_repair_id}
+    </delete>
+    <delete id="DeleteRepairMalfunction">
+        delete from repair_malfunction_info where element_repair_id = #{element_repair_id} and malfunction_id = #{malfunction_id}
+    </delete>
+</mapper>

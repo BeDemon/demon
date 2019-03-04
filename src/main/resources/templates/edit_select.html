@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+    <title>方案库-装备保障方案</title>
+
+    <link href="css/style.default.css" rel="stylesheet">
+    <link href="css/jquery.datatables.css" rel="stylesheet">
+    <!-- datepicker -->
+    <link rel='stylesheet' type='text/css' href='css/core.css'>
+
+    <link rel="stylesheet" href="css/bootstrap-select.css">
+    <link rel="stylesheet" type="text/css" href="css/city-picker.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+
+    <style type="text/css">
+        #pdfContainer{height:800px !important;width:100%;}
+        .pro_modal .modal-body{padding:0;height:auto}
+        .pro_modal .modal-body ul{padding:10px 50px;}
+        .modal-dialog{height:690px;}
+        .upgrade_title .close_title{position:absolute;width:20px;height:20px;top:20px;right:20px;z-index:100}
+        .upgrade_title .close_title img{width:100%;height:100%;}
+    </style>
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+<section>
+
+    <div class="left"></div>
+
+    <div class="mainpanel">
+
+        <div class="head"></div>
+
+        <div class="pageheader">
+            <h2><i class="fa  fa-edit"></i> 保障方案编辑</h2>
+            <div class="breadcrumb-wrapper">
+                <span class="label">当前位置:</span>
+                <ol class="breadcrumb">
+                    <li><a href="#">装备保障系统</a></li>
+                    <li class="active">编辑保障方案</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="modal fade" id="pdf_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" style="width: 1000px;height: 1600px;z-index:1500">
+                <div class="modal-content pro_modal">
+                    <iframe src="" id="pdfContainer" name="pdfContainer"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="contentpanel">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-btns">
+                            <a href="" class="panel-close">&times;</a>
+                            <a href="" class="minimize">&minus;</a>
+                        </div>
+                        <h4 class="panel-title">xxx类型xx季节任务 -- 代号</h4>
+                        <p></p>
+                    </div>
+                    <div class="panel-body">
+                        <h3>相似方案推荐</h3>
+                        <div class="col-md-12">
+                            <div>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>方案名称</th>
+                                        <th>完成时间</th>
+                                        <th>评估得分</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td class="plan_name"><a href="#">XX任务</a></td>
+                                        <td>2015-06-12</td>
+                                        <td>88</td>
+                                        <td>选择</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td class="plan_name"><a href="#">XXX任务</a></td>
+                                        <td>2016-06-12</td>
+                                        <td>80</td>
+                                        <td>选择</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td class="plan_name"><a href="#">XXX任务</a></td>
+                                        <td>2016-06-12</td>
+                                        <td>80</td>
+                                        <td>选择</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-12 col-sm-offset-3" style="text-align: center; margin: 0 auto">
+                                    <!--<button class="btn btn-primary">保存</button>&nbsp;-->
+                                    <button class="btn btn-primary" onclick="window.location.href='edit_struct.html'">新建方案</button>&nbsp;
+                                    <button class="btn btn-default" onclick="window.location.href='text.html'">
+                                        取消
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- panel-body -->
+
+                </div><!-- panel-footer -->
+        </div><!-- panel -->
+
+
+    </div><!-- mainpanel -->
+
+</section>
+
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+<script src="js/select2.min.js"></script>
+
+<script src="js/custom.js"></script>
+<script src="js/bootstrap-select.js"></script>
+
+<script>
+    // 加载共同头部
+    $(function(){
+        $('.left').load("left.html")
+        $('.head').load("head.html")
+    });
+
+    function showPDF(urlSrc){
+        var urlPre ="pdfjs/web/viewer.html?file="+ urlSrc;
+        $("#pdfContainer").attr('src',urlPre);
+        $("#pdf_Modal").modal("show");
+    }
+
+    jQuery(document).ready(function () {
+
+        "use strict";
+
+        // Delete row in a table
+        jQuery('.delete-row').click(function () {
+            alert("delete row");
+            var c = confirm("Continue delete?");
+            if (c)
+                jQuery(this).closest('.panel').fadeOut(function () {
+                    jQuery(this).remove();
+                });
+
+            return false;
+        });
+
+
+    });
+
+</script>
+
+<script>
+
+</script>
+</body>
+</html>

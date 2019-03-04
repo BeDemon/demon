@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.TeamMapper">
+
+
+    <select id="GetTeam"  resultType="com.example.entity.Team">
+        select * from team_info where group_id = #{group_id} and team_name = #{team_name}
+    </select>
+
+    <select id="GetTeamByGroupId"  resultType="com.example.entity.Team">
+        select * from team_info where group_id = #{group_id}
+    </select>
+
+    <select id="GetDepartmentNumber" resultType="Integer">
+        select person_number from team_department_info where team_id = #{team_id} and department_id = #{department_id}
+    </select>
+
+
+    <select id="GetCategoryNumber" resultType="Integer">
+        select category_number from team_category_info where team_id = #{team_id} and category_id = #{category_id}
+    </select>
+
+    <select id="GetTeamTask"  resultType="com.example.entity.Task">
+        select * from task_team_info where team_id = #{team_id}
+        <if test="task_number != null and task_number != ''">
+            and task_number = #{task_number}
+        </if>
+    </select>
+
+    <insert id="AddTeam" parameterType="com.example.entity.Team">
+        insert into team_info(group_id,team_name,army_id) values(#{group_id},#{team_name},#{army_id})
+    </insert>
+
+    <insert id="AddDepartNumber" >
+        insert into team_department_info(team_id,department_id,person_number) values(#{team_id},#{department_id},#{person_number})
+    </insert>
+
+    <insert id="AddCategoryNumber" parameterType="com.example.entity.Team_Category">
+        insert into team_category_info(team_id,category_id,category_number) values(#{team_id},#{category_id},#{category_number})
+    </insert>
+
+    <insert id="AddTeamTask" parameterType="com.example.entity.Task">
+        insert into task_team_info(team_id,task_number,item) values(#{type_id},#{task_number},#{item})
+    </insert>
+
+    <update id="ModifyDepartmentNumber">
+        update team_department_info
+        <set>
+            people_number = #{people_number}
+        </set>
+        where team_id = #{team_id} and department_id = #{department_id}
+    </update>
+
+    <delete id="DeleteDepartment">
+        delete from team_department_info where team_id = #{team_id} and department_id = #{department_id}
+    </delete>
+
+    <update id="ModifyCategoryNumber">
+        update team_category_info
+        <set>
+            category_number = #{category_number}
+        </set>
+        where team_id = #{team_id} and category_id = #{category_id}
+    </update>
+
+    <delete id="DeleteCategory">
+        delete from team_category_info where team_id = #{team_id} and category_id = #{category_id}
+    </delete>
+
+    <update id="ModifyTeamTask" parameterType="com.example.entity.Task">
+        update task_team_info
+        <set>
+            <if test="task_number != null">
+                task_number = #{task_number}
+            </if>
+            <if test="item != null">
+                item = #{item}
+            </if>
+        </set>
+        where Task_id = #{Task_id}
+    </update>
+
+    <delete id="DeleteTeamTask">
+        delete from task_team_info where Task_id = #{Task_id}
+    </delete>
+
+    <delete id="DeleteTeam">
+        delete from team_info where team_id = #{team_id}
+    </delete>
+</mapper>

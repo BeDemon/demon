@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.UserMapper">
+    <!--id对应接口中的方法，名字要一样，parameterType是方法的参数类型，
+    resultType是查询返回的类型，需要注意的是，这里的SQL语句后面不能加分号，变量不能加引号-->
+    <select id="getById" parameterType="String" resultType="User">
+        select * from user_tab where userId = #{userId}
+    </select>
+
+    <insert id="insertUser">
+        insert into user_info(user_id, user_name, user_job, user_level) values(#{userId}, #{userName}, #{userJob}, #{userLevel})
+    </insert>
+
+    <select id="getUsersByOrder" resultType="com.example.entity.User">
+        select * from user_info order by user_id
+    </select>
+
+    <select id="getUsersByLevel" parameterType="int" resultType="User">
+        select * from user_info where user_level = #{userLevel}
+    </select>
+
+    <update id="updateUser" parameterType="com.example.entity.User">
+        update user_info set user_id=#{userId}, user_name=#{userName}, user_job=#{userJob}, user_level=#{userLevel} where user_id = #{userId}
+    </update>
+
+    <delete id="deleteAllUsers">
+        delete from user_info
+    </delete>
+
+    <delete id="deleteUser" parameterType="String">
+        delete from user_info where user_id = #{userId}
+    </delete>
+
+</mapper>

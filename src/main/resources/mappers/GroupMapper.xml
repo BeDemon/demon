@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.GroupMapper">
+    <select id="GetGroup"  resultType="com.example.entity.Group">
+        select * from group_info where plan_id = #{plan_id} and group_name = #{group_name}
+    </select>
+    <select id="GetGroupByPlanId"  resultType="com.example.entity.Group">
+        select * from group_info where plan_id = #{plan_id}
+    </select>
+
+    <select id="GetGroupTask"  resultType="com.example.entity.Task">
+        select * from task_group_info where group_id = #{group_id}
+        <if test="task_number != null and task_number != ''">
+            and task_number = #{task_number}
+        </if>
+    </select>
+
+    <insert id="AddGroup" parameterType="com.example.entity.Group">
+        insert into group_info(plan_id,group_name,group_type) values(#{plan_id},#{group_name},#{group_type})
+    </insert>
+
+    <insert id="AddGroupTask" parameterType="com.example.entity.Task">
+        insert into task_group_info(group_id,task_number,item) values(#{type_id},#{task_number},#{item})
+    </insert>
+
+    <update id="ModifyGroupTask" parameterType="com.example.entity.Task">
+        update task_group_info
+        <set>
+            <if test="task_number != null">
+                task_number = #{task_number}
+            </if>
+            <if test="item != null">
+                item = #{item}
+            </if>
+        </set>
+        where Task_id = #{Task_id}
+    </update>
+
+    <delete id="DeleteGroupTask">
+        delete from task_group_info where Task_id = #{Task_id}
+    </delete>
+
+    <delete id="DeleteGroup">
+		delete from group_info
+		where group_id = #{group_id}
+	</delete>
+
+</mapper>

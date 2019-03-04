@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.ArmyMapper">
+    <select id="GetAllArmy"  resultType="Army">
+        select * from army_info
+    </select>
+    <select id="GetArmyCount" resultType="Integer">
+        select count(army_id) from army_info;
+    </select>
+    <select id="GetArmyById" parameterType="Integer"  resultType="Army">
+        select * from army_info where army_id = #{army_id}
+    </select>
+    <select id="GetArmyByName"  resultType="com.example.entity.Army">
+        select * from army_info where army_name = #{army_name}
+    </select>
+    <insert id="AddArmy" parameterType="com.example.entity.Army">
+        insert into army_info(platoon_name,battalion_name) values(#{platoon_name},#{battalion_name})
+    </insert>
+</mapper>

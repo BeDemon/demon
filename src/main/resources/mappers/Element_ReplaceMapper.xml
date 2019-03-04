@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.Element_ReplaceMapper">
+    <select id="GetElementReplaceByElementId"  resultType="com.example.entity.Element_Replace">
+        select * from element_replace_info where equipment_element_id = #{equipment_element_id}
+    </select>
+
+    <insert id="AddElementReplace" parameterType="com.example.entity.Element_Replace">
+        insert into element_replace_info(equipment_element_id,user_id,element_replace_time)
+        valus(#{equipment_element_id},#{user_id},#{element_replace_time})
+    </insert>
+
+    <delete id="DeleteElementReplace">
+        delete from element_replace_info where element_replace_id = #{element_replace_id}
+    </delete>
+</mapper>

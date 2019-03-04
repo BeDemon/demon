@@ -1,0 +1,18 @@
+package com.example.entity;
+
+import lombok.Data;
+
+@Data
+public class User {
+    private String userName;
+    private String userId;
+    private String userJob;
+    private int userLevel;
+
+
+    public User() {
+
+    }
+
+
+}

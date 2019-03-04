@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.ElementMapper">
+    <select id="GetAllElement"  resultType="com.example.entity.Element">
+        select * from element_info
+    </select>
+    <select id="GetElementByName"  resultType="com.example.entity.Element">
+        select * from element_info where element_name = #{element_name}
+    </select>
+    <select id="GetElementByCategoryId"  resultType="com.example.entity.Element">
+        select * from element_info where category_id = #{category_id}
+    </select>
+    <select id="GetElementByElementId"  resultType="com.example.entity.Element">
+        select * from element_info where element_id = #{element_id}
+    </select>
+    <insert id="AddElement" parameterType="com.example.entity.Element">
+        insert into element_info(category_id,element_name,element_type,supplier_id)
+        values (#{category_id},#{element_name},#{element_type},#{supplier_id})
+    </insert>
+</mapper>

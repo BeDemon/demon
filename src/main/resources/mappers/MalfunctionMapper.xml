@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.MalfunctionMapper">
+    <select id="GetMalfunctionById"  resultType="com.example.entity.Malfunction">
+        select * from malfunction_info where malfunction_id = #{malfunction_id}
+    </select>
+    <select id="GetMalfunctionByElementId"  resultType="com.example.entity.Malfunction">
+        select * from malfunction_info where element_id = #{element_id}
+    </select>
+    <select id="GetMalfunctionByCategoryId"  resultType="com.example.entity.Malfunction">
+        select * from malfunction_info where
+        element_id in (select element_id from element_info where category_id = #{category_id})
+    </select>
+    <select id="GetMalfunctionReason"  resultType="com.example.entity.Reason">
+        select * from reason_info where malfunction_id = #{malfunction_id}
+    </select>
+    <select id="GetMalfunctionSolution"  resultType="com.example.entity.Solution">
+        select * from solution_info where malfunction_id = #{malfunction_id}
+    </select>
+
+
+    <insert id="AddMalfunction" parameterType="com.example.entity.Malfunction">
+        insert into malfunction_info(element_id,malfunction_description,malfunction_influences)
+        valus(#{element_id},#{malfunction_description},#{malfunction_influences})
+    </insert>
+    <insert id="AddMalfunctionReason" parameterType="com.example.entity.Reason">
+        insert into reason_info(malfunction_id,reason_description)
+        valus(#{malfunction_id},#{reason_description})
+    </insert>
+    <insert id="AddMalfunctionSolution" parameterType="com.example.entity.Solution">
+        insert into solution_info(malfunction_id,solution_description)
+        valus(#{malfunction_id},#{solution_description})
+    </insert>
+
+    <delete id="DeleteMalfunction">
+        delete from malfunction_info where malfunction_id = #{malfunction_id}
+    </delete>
+    <delete id="DeleteMalfunctionReason">
+        delete from reason_info where reason_id = #{reason_id}
+    </delete>
+    <delete id="DeleteMalfunctionSolutin">
+        delete from solution_info where solution_id = #{solution_id}
+    </delete>
+</mapper>

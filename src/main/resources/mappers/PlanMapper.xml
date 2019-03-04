@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.PlanMapper">
+    <select id="GetAllPlan"  resultType="com.example.entity.Plan">
+        select * from plan_info order by plan_id desc limit #{currentNumber},#{pageNumber}
+    </select>
+
+    <select id="GetPlan"  resultType="com.example.entity.Plan">
+        select * from plan_info where scheme_id = #{scheme_id} and plan_name = #{plan_name}
+    </select>
+    <select id="GetPlanBySchemeId"  resultType="com.example.entity.Plan">
+        select * from plan_info where scheme_id = #{scheme_id}
+    </select>
+    <select id="GetPlanTask"  resultType="com.example.entity.Task">
+        select * from task_plan_info where plan_id = #{type_id}
+        <if test="task_number != null and task_number != ''">
+            and task_number = #{task_number}
+        </if>
+    </select>
+
+    <insert id="AddPlan" parameterType="com.example.entity.Plan">
+        insert into plan_info(scheme_id,plan_name,plan_type) values(#{scheme_id},#{plan_name},#{plan_type})
+    </insert>
+    <insert id="AddPlanTask" parameterType="com.example.entity.Task">
+        insert into task_plan_info(plan_id,task_number,item) values(#{type_id},#{task_number},#{item})
+    </insert>
+
+    <update id="ModifyPlanTask" parameterType="com.example.entity.Task">
+        update task_plan_info
+        <set>
+            <if test="task_number != null">
+                task_number = #{task_number}
+            </if>
+            <if test="item != null">
+                item = #{item}
+            </if>
+        </set>
+        where Task_id = #{Task_id}
+    </update>
+
+    <delete id="DeletePlanTask">
+        delete from task_plan_info where Task_id = #{Task_id}
+    </delete>
+
+    <delete id="DeletePlan">
+		delete from plan_info
+		where plan_id = #{plan_id}
+	</delete>
+
+</mapper>

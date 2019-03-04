@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mappers.Equipment_ElementMapper">
+    <select id="GetEquipmentElements"  resultType="com.example.entity.Equipment_Element">
+        select * from equipment_element_info where equipment_id = #{equipment_id}
+    </select>
+    <select id="GetEquipmentElement"  resultType="com.example.entity.Equipment_Element">
+        select * from equipment_element_info where equipment_id = #{equipment_id} and element_id = #{element_id}
+    </select>
+
+    <insert id="AddEquipmentElement">
+        insert into equipment_element_info(equipment_id,element_id) valus(#{equipment_id},#{element_id})
+    </insert>
+
+    <delete id="DeleteEquipmentElement">
+        delete from equipment_element_info where equipment_id = #{equipment_id} and element_id = #{element_id}
+    </delete>
+</mapper>
