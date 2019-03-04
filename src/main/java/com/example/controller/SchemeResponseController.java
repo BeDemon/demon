@@ -2,11 +2,14 @@ package com.example.controller;
 
 import com.example.entity.Location;
 import com.example.entity.Scheme;
+import com.example.entity.Scheme_Army;
 import com.example.service.SchemeService;
 import com.example.util.JsonPaser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/rest-api")
@@ -35,6 +38,13 @@ public class SchemeResponseController {
         }
         else
         {
+            List<Scheme_Army> list = jsonPaser.ParseSchemeArmy(jsonStr);
+            for (int i=0;i<list.size();i++)
+            {
+                Scheme_Army scheme_army = list.get(i);
+                scheme_army.setScheme_id(scheme_id);
+                schemeService.AddSchemeArmy(scheme_army);
+            }
             System.out.println("success");
             return "{\"scheme_id\":"+scheme_id+"}";
         }

@@ -31,12 +31,9 @@ create table scheme_info
     safeguard_mode    varchar(32) not null,
     carry_method      varchar(32) not null,
     scheme_type         varchar(32) not null,
-    army_id           integer not null,
-    people_number     integer not null,
     scheme_begin_time TIMESTAMP   not null,
     scheme_end_time   TIMESTAMP   not null,
-    foreign key (location_id) references location_info(location_id),
-    foreign key (army_id) references army_info(army_id)
+    foreign key (location_id) references location_info(location_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table plan_info
@@ -154,6 +151,15 @@ create table army_info
     army_id integer primary key AUTO_INCREMENT,
     platoon_name varchar(32) not null,
     battalion_name varchar(32) not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+create table scheme_army_info
+(
+    scheme_id integer not null ,
+    army_id integer not null ,
+    people_number integer not null,
+    foreign key (scheme_id) references scheme_info (scheme_id),
+    foreign key (army_id) references army_info(army_id),
+    primary key (scheme_id,army_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 create table person_info
 (

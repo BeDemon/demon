@@ -16,16 +16,33 @@
     <select id="GetSchemeEquipment"  resultType="com.example.entity.Equipment">
         select * from equipment_info where equipment_id in (select equipment_id from scheme_equipment_info where scheme_id =  #{scheme_id}) order by equipment_id desc limit #{currentNumber},#{pageNumber}
     </select>
+    <select id="GetSchemeArmyBySchemeId" resultType="com.example.entity.Scheme_Army">
+        select * from scheme_army_info where scheme_id = #{scheme_id}
+    </select>
+    <select id="GetSchemeArmyNumber" resultType="com.example.entity.Scheme_Army">
+        select * from scheme_army_info where scheme_id = #{scheme_id} and army_id = #{army_id}
+    </select>
 
     <insert id="AddScheme" parameterType="com.example.entity.Scheme">
-        insert into scheme_info(scheme_name,scheme_code,location_id,scheme_type,combat_direction,safeguard_mode,carry_method,scheme_begin_time,scheme_end_time,army_id,people_number)
-        values (#{scheme_name},#{scheme_code},#{location_id},#{scheme_type},#{combat_direction},#{safeguard_mode},#{carry_method},#{scheme_begin_time},#{scheme_end_time},#{army_id},#{people_number})
+        insert into scheme_info(scheme_name,scheme_code,location_id,scheme_type,combat_direction,safeguard_mode,carry_method,scheme_begin_time,scheme_end_time)
+        values (#{scheme_name},#{scheme_code},#{location_id},#{scheme_type},#{combat_direction},#{safeguard_mode},#{carry_method},#{scheme_begin_time},#{scheme_end_time})
     </insert>
 
     <insert id="AddSchemeEquipment">
         insert into scheme_equipment_info(scheme_id,equipment_id)
         values(#{scheme_id},#{equipment_id})
     </insert>
+
+    <insert id="AddSchemeArmy">
+        insert into scheme_army_info(scheme_id,army_id,people_number)
+        values(#{scheme_id},#{army_id},#{people_number})
+    </insert>
+
+    <update id="ModifySchemeArmy" parameterType="com.example.entity.Scheme_Army">
+        update scheme_army_info set people_number = #{people_number}
+        where scheme_id = #{scheme_id} and army_id = #{army_id}
+    </update>
+
     <update id="ModifyScheme" parameterType="com.example.entity.Scheme">
         update scheme_info
         <set>

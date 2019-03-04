@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class SchemeServiceImpl implements SchemeService {
+    public class SchemeServiceImpl implements SchemeService {
     @Autowired
     private ArmyMapper armyMapper;
     @Autowired
@@ -48,6 +48,19 @@ public class SchemeServiceImpl implements SchemeService {
             locationMapper.AddLocation(location);
             locationID = locationMapper.GetLocationID(longitude,latitude);
             return locationID;
+        }
+    }
+
+    @Override
+    public void AddSchemeArmy(Scheme_Army scheme_army) {
+        Scheme_Army schemeArmy = schemeMapper.GetSchemeArmyNumber(scheme_army);
+        if (schemeArmy != null)
+        {
+            schemeMapper.ModifySchemeArmy(scheme_army);
+        }
+        else
+        {
+            schemeMapper.AddSchemeArmy(scheme_army);
         }
     }
 

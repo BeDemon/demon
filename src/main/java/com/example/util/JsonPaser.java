@@ -61,7 +61,20 @@ public class JsonPaser {
         JsonObjToBeanObj(jsonObj.getJSONObject("scheme"),scheme);
         return scheme;
     }
-
+    public List<Scheme_Army> ParseSchemeArmy(String jsonStr) throws JSONException
+    {
+        JSONObject jsonObj = new JSONObject(jsonStr);
+        List<Scheme_Army> list = new ArrayList<>();
+        JSONArray scheme_army_list_json = jsonObj.getJSONArray("scheme_army_list");
+        for(int i=0;i<scheme_army_list_json.length();i++)
+        {
+            JSONObject id_json = scheme_army_list_json.getJSONObject(i);
+            Scheme_Army scheme_army = new Scheme_Army();
+            JsonObjToBeanObj(id_json.getJSONObject("scheme_army"),scheme_army);
+            list.add(scheme_army);
+        }
+        return list;
+    }
     public Task ParseTask(String jsonStr) throws JSONException
     {
         JSONObject jsonObj = new JSONObject(jsonStr);

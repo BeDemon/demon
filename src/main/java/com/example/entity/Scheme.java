@@ -13,14 +13,12 @@ public class Scheme {
     private String combat_direction;//作战方向
     private String safeguard_mode;//保障模式
     private String carry_method;//携装方式
-    private Integer army_id;
-    private Integer people_number;
     private List<Equipment> equipment_list;
 
     public Scheme() {
     }
 
-    public Scheme(Integer scheme_id, String scheme_name, String scheme_code, Integer location_id, String scheme_begin_time, String scheme_end_time, String scheme_type, String combat_direction, String safeguard_mode, String carry_method, Integer army_id, Integer people_number, List<Equipment> equipment_list) {
+    public Scheme(Integer scheme_id, String scheme_name, String scheme_code, Integer location_id, String scheme_begin_time, String scheme_end_time, String scheme_type, String combat_direction, String safeguard_mode, String carry_method, List<Equipment> equipment_list) {
         this.scheme_id = scheme_id;
         this.scheme_name = scheme_name;
         this.scheme_code = scheme_code;
@@ -31,8 +29,6 @@ public class Scheme {
         this.combat_direction = combat_direction;
         this.safeguard_mode = safeguard_mode;
         this.carry_method = carry_method;
-        this.army_id = army_id;
-        this.people_number = people_number;
         this.equipment_list = equipment_list;
     }
 
@@ -116,22 +112,6 @@ public class Scheme {
         this.carry_method = carry_method;
     }
 
-    public Integer getArmy_id() {
-        return army_id;
-    }
-
-    public void setArmy_id(Integer army_id) {
-        this.army_id = army_id;
-    }
-
-    public Integer getPeople_number() {
-        return people_number;
-    }
-
-    public void setPeople_number(Integer people_number) {
-        this.people_number = people_number;
-    }
-
     public List<Equipment> getEquipment_list() {
         return equipment_list;
     }
@@ -139,6 +119,4 @@ public class Scheme {
     public void setEquipment_list(List<Equipment> equipment_list) {
         this.equipment_list = equipment_list;
     }
-
-
 }

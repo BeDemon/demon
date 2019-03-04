@@ -15,5 +15,5 @@ public interface SchemeService {
 
     public Integer GetLocationID(Integer longitude,Integer a);
 
-
+    public void AddSchemeArmy(Scheme_Army scheme_army);
 }
