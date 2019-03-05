@@ -75,6 +75,20 @@ public class JsonPaser {
         }
         return list;
     }
+    public List<Integer> ParseSchemeEquipment(String jsonStr)
+    {
+        JSONObject jsonObj = new JSONObject(jsonStr);
+        List<Integer> list = new ArrayList<>();
+        JSONArray list_json = jsonObj.getJSONArray("scheme_equipment");
+        for (int i=0;i<list_json.length();i++)
+        {
+            JSONObject equipment_id_json = list_json.getJSONObject(i);
+            Integer integer = equipment_id_json.getInt("equipment_id");
+            list.add(integer);
+        }
+        return list;
+
+    }
     public Task ParseTask(String jsonStr) throws JSONException
     {
         JSONObject jsonObj = new JSONObject(jsonStr);
@@ -82,27 +96,53 @@ public class JsonPaser {
         JsonObjToBeanObj(jsonObj.getJSONObject("task"),task);
         return task;
     }
-    public HashMap<Integer,List<Integer>> ParseEquipmentIDList(String jsonStr) throws JSONException
-    {
-        HashMap<Integer,List<Integer>> map = new HashMap<>();
-        JSONObject jsonObj = new JSONObject(jsonStr);
-        List<Integer> list = new ArrayList<>();
-        Integer integer = jsonObj.getInt("scheme_id");
-        JSONArray id_list_json = jsonObj.getJSONArray("equipment_list");
-        for (int i=0;i<id_list_json.length();i++)
-        {
-            JSONObject id_json = id_list_json.getJSONObject(i);
-            Integer ig = id_json.getInt("equipment_id");
-            list.add(ig);
-        }
-        map.put(integer,list);
-        return map;
-    }
     public Plan ParsePlan(String jsonStr) throws JSONException
     {
         JSONObject jsonObj = new JSONObject(jsonStr);
+        JSONObject planObj = jsonObj.getJSONObject("plan");
         Plan plan = new Plan();
         JsonObjToBeanObj(jsonObj.getJSONObject("plan"),plan);
+        JSONArray group_list_json = planObj.getJSONArray("group_list");
+        List<Group> group_list = new ArrayList<>();
+        for(int i= 0;i<group_list_json.length();i++)
+        {
+            JSONObject group_json = group_list_json.getJSONObject(i).getJSONObject("group");
+            System.out.println(group_json.toString()+"..........");
+            JSONArray team_list_json = group_json.getJSONArray("team_list");
+            Group group = new Group();
+            JsonObjToBeanObj(group_list_json.getJSONObject(i).getJSONObject("group"),group);
+            List<Team> team_list = new ArrayList<>();
+            for (int j=0;j<team_list_json.length();j++)
+            {
+                JSONObject team_json = team_list_json.getJSONObject(j).getJSONObject("team");
+                JSONArray team_department_list_json = team_json.getJSONArray("team_department_list");
+                JSONArray team_category_list_json = team_json.getJSONArray("team_category_list");
+                Team team = new Team();
+                JsonObjToBeanObj(team_list_json.getJSONObject(j).getJSONObject("team"),team);
+                List<Team_Department> team_department_list = new ArrayList<>();
+                for (int k=0;k<team_department_list_json.length();k++)
+                {
+                    JSONObject team_department_json = team_department_list_json.getJSONObject(k);
+                    Team_Department team_department = new Team_Department();
+                    JsonObjToBeanObj(team_department_json.getJSONObject("team_department"),team_department);
+                    team_department_list.add(team_department);
+                }
+                List<Team_Category> team_category_list = new ArrayList<>();
+                for (int k=0;k<team_category_list_json.length();k++)
+                {
+                    JSONObject team_category_json = team_category_list_json.getJSONObject(k);
+                    Team_Category team_category = new Team_Category();
+                    JsonObjToBeanObj(team_category_json.getJSONObject("team_category"),team_category);
+                    team_category_list.add(team_category);
+                }
+                team.setTeam_department_list(team_department_list);
+                team.setTeam_category_list(team_category_list);
+                team_list.add(team);
+            }
+            group.setTeam_list(team_list);
+            group_list.add(group);
+        }
+        plan.setGroup_list(group_list);
         return plan;
     }
     public Group ParseGroup(String jsonStr) throws JSONException

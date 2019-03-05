@@ -3,15 +3,15 @@ package com.example.entity;
 public class Team_Department {
     Integer team_id;
     Integer department_id;
-    Integer person_number;
+    Integer department_people;
 
     public Team_Department() {
     }
 
-    public Team_Department(Integer team_id, Integer department_id, Integer person_number) {
+    public Team_Department(Integer team_id, Integer department_id, Integer department_people) {
         this.team_id = team_id;
         this.department_id = department_id;
-        this.person_number = person_number;
+        this.department_people = department_people;
     }
 
     public Integer getTeam_id() {
@@ -30,11 +30,11 @@ public class Team_Department {
         this.department_id = department_id;
     }
 
-    public Integer getPerson_number() {
-        return person_number;
+    public Integer getDepartment_people() {
+        return department_people;
     }
 
-    public void setPerson_number(Integer person_number) {
-        this.person_number = person_number;
+    public void setDepartment_people(Integer department_people) {
+        this.department_people = department_people;
     }
 }

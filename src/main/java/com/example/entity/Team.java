@@ -9,21 +9,21 @@ public class Team {
     private Integer group_id;
     private String team_name;
     private Integer army_id;//需保障的队伍
-    private List<Task> task_list;
-    private List<HashMap<Department,Integer>> personnel_list;
-    private List<HashMap<Category,Integer>> category_list;
+    private Integer location_id;//部署地点
+    private List<Team_Department> team_department_list;
+    private List<Team_Category> team_category_list;
 
     public Team() {
     }
 
-    public Team(Integer team_id, Integer group_id, String team_name, Integer army_id, List<Task> task_list, List<HashMap<Department, Integer>> personnel_list, List<HashMap<Category, Integer>> category_list) {
+    public Team(Integer team_id, Integer group_id, String team_name, Integer army_id, Integer location_id, List<Team_Department> team_department_list, List<Team_Category> team_category_list) {
         this.team_id = team_id;
         this.group_id = group_id;
         this.team_name = team_name;
         this.army_id = army_id;
-        this.task_list = task_list;
-        this.personnel_list = personnel_list;
-        this.category_list = category_list;
+        this.location_id = location_id;
+        this.team_department_list = team_department_list;
+        this.team_category_list = team_category_list;
     }
 
     public Integer getTeam_id() {
@@ -58,27 +58,27 @@ public class Team {
         this.army_id = army_id;
     }
 
-    public List<Task> getTask_list() {
-        return task_list;
+    public Integer getLocation_id() {
+        return location_id;
     }
 
-    public void setTask_list(List<Task> task_list) {
-        this.task_list = task_list;
+    public void setLocation_id(Integer location_id) {
+        this.location_id = location_id;
     }
 
-    public List<HashMap<Department, Integer>> getPersonnel_list() {
-        return personnel_list;
+    public List<Team_Department> getTeam_department_list() {
+        return team_department_list;
     }
 
-    public void setPersonnel_list(List<HashMap<Department, Integer>> personnel_list) {
-        this.personnel_list = personnel_list;
+    public void setTeam_department_list(List<Team_Department> team_department_list) {
+        this.team_department_list = team_department_list;
     }
 
-    public List<HashMap<Category, Integer>> getCategory_list() {
-        return category_list;
+    public List<Team_Category> getTeam_category_list() {
+        return team_category_list;
     }
 
-    public void setCategory_list(List<HashMap<Category, Integer>> category_list) {
-        this.category_list = category_list;
+    public void setTeam_category_list(List<Team_Category> team_category_list) {
+        this.team_category_list = team_category_list;
     }
 }

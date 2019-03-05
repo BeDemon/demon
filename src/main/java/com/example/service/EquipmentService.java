@@ -11,4 +11,7 @@ public interface EquipmentService {
     public List<Equipment> GetEquipmentListByType(String category_type);
 
     public List<Department> GetDepartment();
+
+    public void AddSchemeEquipment(List<Scheme_Equipment> scheme_equipment_list);
+
 }

@@ -8,4 +8,15 @@
         select * from equipment_info where category_id in (select category_id from category_info where category_type = #{category_type})
     </select>
 
+    <select id="GetSchemeEquipment" parameterType="com.example.entity.Scheme_Equipment" resultType="Integer">
+        select count(*) from scheme_equipment_info where scheme_id = #{scheme_id} and equipment_id = #{equipment_id}
+    </select>
+
+    <select id="GetSchemeEquipmentBySchemeId" resultType="com.example.entity.Scheme_Equipment">
+        select * from scheme_equipment_info where scheme_id = #{scheme_id}
+    </select>
+
+    <insert id="AddSchemeEquipment" parameterType="com.example.entity.Scheme_Equipment">
+        insert into scheme_equipment_info(scheme_id, equipment_id) values (#{scheme_id},#{equipment_id})
+    </insert>
 </mapper>

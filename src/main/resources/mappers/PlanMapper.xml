@@ -3,50 +3,59 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mappers.PlanMapper">
-    <select id="GetAllPlan"  resultType="com.example.entity.Plan">
-        select * from plan_info order by plan_id desc limit #{currentNumber},#{pageNumber}
+    <select id="GetSchemeByPlanId" resultType="com.example.entity.Scheme">
+        select scheme_info.* from scheme_info,plan_info
+        where plan_info.scheme_id = scheme_info.scheme_id and plan_id = #{plan_id}
     </select>
 
-    <select id="GetPlan"  resultType="com.example.entity.Plan">
-        select * from plan_info where scheme_id = #{scheme_id} and plan_name = #{plan_name}
+    <select id="GetGroup" resultType="Integer">
+        select group_id from group_info where plan_id = #{plan_id} and group_name = #{group_name}
     </select>
-    <select id="GetPlanBySchemeId"  resultType="com.example.entity.Plan">
-        select * from plan_info where scheme_id = #{scheme_id}
+    <select id="GetPlan" resultType="Integer">
+        select plan_id from plan_info where scheme_id = #{scheme_id} and plan_name = #{plan_name}
     </select>
-    <select id="GetPlanTask"  resultType="com.example.entity.Task">
-        select * from task_plan_info where plan_id = #{type_id}
-        <if test="task_number != null and task_number != ''">
-            and task_number = #{task_number}
-        </if>
+
+    <select id="GetTeam" resultType="Integer">
+        select team_id from team_info where group_id = #{group_id} and team_name = #{team_name}
+    </select>
+
+    <select id="GetTeamDepartment" resultType="Integer">
+        select department_people from team_department_info
+        where team_id = #{team_id} and department_id = #{department_id}
+    </select>
+
+    <select id="GetTeamCategory" resultType="Integer">
+        select category_number from team_category_info
+        where team_id = #{team_id} and category_id = #{category_id}
     </select>
 
     <insert id="AddPlan" parameterType="com.example.entity.Plan">
-        insert into plan_info(scheme_id,plan_name,plan_type) values(#{scheme_id},#{plan_name},#{plan_type})
-    </insert>
-    <insert id="AddPlanTask" parameterType="com.example.entity.Task">
-        insert into task_plan_info(plan_id,task_number,item) values(#{type_id},#{task_number},#{item})
+        insert into plan_info(scheme_id, plan_name, plan_type) values (#{scheme_id}, #{plan_name}, #{plan_type})
     </insert>
 
-    <update id="ModifyPlanTask" parameterType="com.example.entity.Task">
-        update task_plan_info
-        <set>
-            <if test="task_number != null">
-                task_number = #{task_number}
-            </if>
-            <if test="item != null">
-                item = #{item}
-            </if>
-        </set>
-        where Task_id = #{Task_id}
+    <insert id="AddGroup" parameterType="com.example.entity.Group">
+        insert into group_info(plan_id, group_name, group_type) values (#{plan_id}, #{group_name}, #{group_type})
+    </insert>
+
+    <insert id="AddTeam" parameterType="com.example.entity.Team">
+        insert into team_info(group_id,team_name,army_id) values (#{group_id},#{team_name},#{army_id})
+    </insert>
+
+    <insert id="AddTeamDepartment" parameterType="com.example.entity.Team_Department">
+        insert into team_department_info(team_id, department_id, department_people) values (#{team_id},#{department_id},#{department_people})
+    </insert>
+
+    <insert id="AddTeamCategory" parameterType="com.example.entity.Team_Category">
+        insert into team_category_info(team_id, category_id, category_number) values (#{team_id}, #{category_id}, #{category_number})
+    </insert>
+
+    <update id="ModifyTeamDepartment" parameterType="com.example.entity.Team_Department">
+        update team_department_info set department_people = #{department_people}
+        where team_id = #{team_id} and  department_id = #{department_id}
     </update>
 
-    <delete id="DeletePlanTask">
-        delete from task_plan_info where Task_id = #{Task_id}
-    </delete>
-
-    <delete id="DeletePlan">
-		delete from plan_info
-		where plan_id = #{plan_id}
-	</delete>
-
+    <update id="ModifyTeamCategory" parameterType="com.example.entity.Team_Category">
+        update team_category_info set category_number = #{category_number}
+        where team_id = #{team_id} and category_id = #{category_id}
+    </update>
 </mapper>

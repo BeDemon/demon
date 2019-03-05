@@ -1,14 +1,14 @@
 package com.example.controller;
 
-import com.example.entity.Location;
-import com.example.entity.Scheme;
-import com.example.entity.Scheme_Army;
+import com.example.entity.*;
+import com.example.service.EquipmentService;
 import com.example.service.SchemeService;
 import com.example.util.JsonPaser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -17,6 +17,10 @@ public class SchemeResponseController {
 
     @Autowired
     private SchemeService schemeService;
+
+    @Autowired
+    private EquipmentService equipmentService;
+
     JsonPaser jsonPaser = new JsonPaser();
 
     @ResponseBody
@@ -50,5 +54,35 @@ public class SchemeResponseController {
         }
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/AddPlanMsg", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+    public String AddPlan(@RequestBody String jsonStr) {
+        System.out.println(jsonStr);
+        Plan plan = jsonPaser.ParsePlan(jsonStr);
+        List<Integer> integer_list = jsonPaser.ParseSchemeEquipment(jsonStr);
+        if (plan.getScheme_id() == null || plan.getScheme_id() == 0)
+        {
+            System.out.println("error");
+            throw new AssertionError("方案不存在！");
+        }
+        else {
 
+
+            String str =  schemeService.AddPlanMsg(plan);
+            if (str.equals("Success"))
+            {
+                List<Scheme_Equipment> scheme_equipment_list = new ArrayList<>();
+                for (int i=0;i<integer_list.size();i++)
+                {
+                    Scheme_Equipment scheme_equipment = new Scheme_Equipment(plan.getScheme_id(),integer_list.get(i));
+                    scheme_equipment_list.add(scheme_equipment);
+                }
+                equipmentService.AddSchemeEquipment(scheme_equipment_list);
+                return "Success";
+            }
+            else
+                return "Error2";
+
+        }
+    }
 }

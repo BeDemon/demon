@@ -33,7 +33,7 @@ public class EquipmentServiceImpl implements EquipmentService {
         List<Equipment> equipment_list = equipmentMapper.GetEquipmentByType(category_type);
         for (int i=0;i<equipment_list.size();i++)
         {
-            equipment_list.get(i).setReliability(reliability.GetReliability());
+            equipment_list.get(i).setReliability(1);
         }
         return equipment_list;
     }
@@ -41,5 +41,18 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Override
     public List<Department> GetDepartment() {
         return departmentMapper.GetAllDepartment();
+    }
+
+    @Override
+    public void AddSchemeEquipment(List<Scheme_Equipment> scheme_equipment_list) {
+        for (int i=0;i<scheme_equipment_list.size();i++)
+        {
+            Scheme_Equipment scheme_equipment = scheme_equipment_list.get(i);
+            Integer count = equipmentMapper.GetSchemeEquipment(scheme_equipment);
+            if (count == null || count == 0)
+            {
+                equipmentMapper.AddSchemeEquipment(scheme_equipment);
+            }
+        }
     }
 }

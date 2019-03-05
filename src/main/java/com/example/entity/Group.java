@@ -7,18 +7,18 @@ public class Group {
     private Integer group_id;
     private Integer plan_id;
     private String group_name;
-    private int group_type;
-    private List<Task> task_list;
+    private Integer group_type;
+    private List<Team> team_list;
 
     public Group() {
     }
 
-    public Group(Integer group_id, Integer plan_id, String group_name, int group_type, List<Task> task_list) {
+    public Group(Integer group_id, Integer plan_id, String group_name, Integer group_type, List<Team> team_list) {
         this.group_id = group_id;
         this.plan_id = plan_id;
         this.group_name = group_name;
         this.group_type = group_type;
-        this.task_list = task_list;
+        this.team_list = team_list;
     }
 
     public Integer getGroup_id() {
@@ -45,19 +45,19 @@ public class Group {
         this.group_name = group_name;
     }
 
-    public int getGroup_type() {
+    public Integer getGroup_type() {
         return group_type;
     }
 
-    public void setGroup_type(int group_type) {
+    public void setGroup_type(Integer group_type) {
         this.group_type = group_type;
     }
 
-    public List<Task> getTask_list() {
-        return task_list;
+    public List<Team> getTeam_list() {
+        return team_list;
     }
 
-    public void setTask_list(List<Task> task_list) {
-        this.task_list = task_list;
+    public void setTeam_list(List<Team> team_list) {
+        this.team_list = team_list;
     }
 }

@@ -8,17 +8,17 @@ public class Plan {
     private Integer scheme_id;
     private String plan_name;
     private Integer plan_type;
-    private List<Task> task_list;
+    private List<Group> group_list;
 
     public Plan() {
     }
 
-    public Plan(Integer plan_id, Integer scheme_id, String plan_name, Integer plan_type, List<Task> task_list) {
+    public Plan(Integer plan_id, Integer scheme_id, String plan_name, Integer plan_type, List<Group> group_list) {
         this.plan_id = plan_id;
         this.scheme_id = scheme_id;
         this.plan_name = plan_name;
         this.plan_type = plan_type;
-        this.task_list = task_list;
+        this.group_list = group_list;
     }
 
     public Integer getPlan_id() {
@@ -53,11 +53,11 @@ public class Plan {
         this.plan_type = plan_type;
     }
 
-    public List<Task> getTask_list() {
-        return task_list;
+    public List<Group> getGroup_list() {
+        return group_list;
     }
 
-    public void setTask_list(List<Task> task_list) {
-        this.task_list = task_list;
+    public void setGroup_list(List<Group> group_list) {
+        this.group_list = group_list;
     }
 }
