@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@RestController
+@Controller
 public class SchemeRequestController {
 
     @Autowired
@@ -22,7 +22,7 @@ public class SchemeRequestController {
     private EquipmentService equipmentService;
 
     @GetMapping("/GetMsg")
-    public Test GetMsg(@Param("scheme_id") Integer scheme_id , Model model) {
+    public String GetMsg(@Param("scheme_id") Integer scheme_id , Model model) {
         model.addAttribute("scheme_id",scheme_id);
         List<Army> army_list = schemeService.RequestArmy();
         if(army_list != null)
@@ -44,8 +44,8 @@ public class SchemeRequestController {
         {
             model.addAttribute("category_list",category_list);
         }
-        Test test = new Test(army_list,department_list,equipment_list,category_list);
-        return test;
+        //Test test = new Test(army_list,department_list,equipment_list,category_list);
+        return "edit_step";
     }
     @GetMapping("/GetArmyMsg")
     public String GetArmyMsg(Model model) {

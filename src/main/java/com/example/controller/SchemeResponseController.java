@@ -30,7 +30,7 @@ public class SchemeResponseController {
         Scheme scheme = jsonPaser.ParseScheme(jsonStr);
         scheme.setScheme_name("方案");
         Location location = jsonPaser.ParseLocation(jsonStr);
-        Integer locationID= schemeService.GetLocationID(location.getLongitude(),location.getLongitude());
+        Integer locationID= schemeService.GetLocationID(location.getLongitude(),location.getLatitude());
 
         scheme.setLocation_id(locationID);
         Integer scheme_id = schemeService.AddScheme(scheme);
